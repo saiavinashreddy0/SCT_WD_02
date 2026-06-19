@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Chrono // Stopwatch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="stopwatch-container">
+        <div class="glow-bg"></div>
+        
+        <div class="app-header">
+            <span class="system-tag">CHRONO // SYSTEM CORE</span>
+            <h1>Stopwatch</h1>
+        </div>
+
+        <div class="display-face">
+            <span id="hours">00</span><span class="colon">:</span>
+            <span id="minutes">00</span><span class="colon">:</span>
+            <span id="seconds">00</span><span class="ms-dot">.</span>
+            <span id="milliseconds" class="ms-display">00</span>
+        </div>
+
+        <div class="control-panel">
+            <button id="lapBtn" class="btn btn-secondary" disabled>Lap</button>
+            <button id="startPauseBtn" class="btn btn-primary-start">Start</button>
+            <button id="resetBtn" class="btn btn-secondary" disabled>Reset</button>
+        </div>
+
+        <div class="lap-workspace">
+            <div class="lap-header">
+                <span>LAP INDEX</span>
+                <span class="text-right">SPLIT TIME</span>
+            </div>
+            <ul class="lap-list" id="lapList">
+                <li class="empty-state">No intervals recorded yet.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

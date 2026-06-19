@@ -1,0 +1,106 @@
+:root {
+    --bg-dark: #07090e;
+    --panel-bg: rgba(14, 17, 26, 0.7);
+    --accent-cyan: #06b6d4;
+    --accent-blue: #3b82f6;
+    --accent-red: #ef4444;
+    --text-white: #f8fafc;
+    --text-slate: #94a3b8;
+    --text-dim: #475569;
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* --- Core App Layout Glass Container --- */
+.stopwatch-container {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    background: var(--panel-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    z-index: 10;
+}
+
+/* Back illumination atmosphere glow */
+.glow-bg {
+    position: absolute; top: -10%; left: -10%; width: 120%; height: 50%;
+    background: radial-gradient(circle at center, rgba(6, 182, 212, 0.12) 0%, transparent 70%);
+    z-index: -1; pointer-events: none;
+}
+
+.app-header { text-align: center; margin-bottom: 36px; }
+.system-tag { color: var(--accent-cyan); font-size: 11px; font-weight: bold; letter-spacing: 2px; }
+.app-header h1 { font-size: 28px; font-weight: 700; margin-top: 6px; letter-spacing: -0.5px; }
+
+/* --- Digital Counter Layout Face --- */
+.display-face {
+    display: flex; align-items: baseline; justify-content: center;
+    background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.02);
+    padding: 30px 20px; border-radius: 16px; margin-bottom: 36px;
+    box-shadow: inset 0 4px 20px rgba(0,0,0,0.4);
+}
+.display-face span { font-size: 54px; font-weight: 500; letter-spacing: -1px; }
+.display-face .colon { color: var(--text-dim); margin: 0 4px; position: relative; top: -4px; }
+.display-face .ms-dot { color: var(--text-dim); }
+.display-face .ms-display { color: var(--accent-cyan); font-size: 38px; width: 50px; margin-left: 4px; }
+
+/* --- Control Buttons Architecture --- */
+.control-panel { display: flex; gap: 16px; margin-bottom: 36px; }
+.btn {
+    flex: 1; padding: 16px; border: none; border-radius: 12px;
+    font-size: 14px; font-weight: bold; cursor: pointer; transition: var(--transition);
+}
+.btn:disabled { opacity: 0.25; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+
+.btn-primary-start { background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue)); color: #000; }
+.btn-primary-start:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3); }
+
+.btn-primary-pause { background: rgba(239, 68, 68, 0.15); border: 1px solid var(--accent-red); color: var(--accent-red); }
+.btn-primary-pause:hover { background: var(--accent-red); color: white; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(239, 68, 68, 0.2); }
+
+.btn-secondary { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); color: white; }
+.btn-secondary:hover:not(:disabled) { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); transform: translateY(-1px); }
+
+/* --- Lap Time Log Tracker Container --- */
+.lap-workspace { border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 24px; }
+.lap-header { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-dim); font-weight: bold; padding: 0 12px 12px 12px; }
+.lap-list { list-style: none; max-height: 170px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-right: 4px; }
+
+/* Custom clean scrollbar track adjustments */
+.lap-list::-webkit-scrollbar { width: 4px; }
+.lap-list::-webkit-scrollbar-track { background: transparent; }
+.lap-list::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+
+.lap-list li {
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.02);
+    padding: 12px 16px; border-radius: 8px; font-size: 13px; animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.lap-index { color: var(--text-slate); font-weight: bold; }
+.lap-time { font-weight: 500; color: white; }
+.empty-state { color: var(--text-dim); font-size: 13px !important; display: block !important; text-align: center; border: none !important; background: transparent !important; padding-top: 20px !important; }
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
